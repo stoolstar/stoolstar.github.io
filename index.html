@@ -20,6 +20,7 @@
       justify-content: center;
     }
 
+    /* Container */
     .shine {
       position: relative;
       display: inline-block;
@@ -30,6 +31,7 @@
       max-height: 560px;
     }
 
+    /* Image */
     img {
       width: 100%;
       height: 100%;
@@ -40,6 +42,7 @@
       z-index: 1;
     }
 
+    /* Thick, bright, frequent glam shine */
     .shine::after {
       content: "";
       position: absolute;
@@ -62,28 +65,29 @@
       mix-blend-mode: screen;
       filter: blur(2px) brightness(1.25);
 
-      /* Shorter travel distance = less "gap" between repeats */
-      transform: translateX(-55%);
+      transform: translateX(-35%);
       animation: shine 14s linear infinite;
     }
 
     @keyframes shine {
-      0%   { transform: translateX(-55%); }
-      100% { transform: translateX(55%); }
+      0%   { transform: translateX(-35%); }
+      100% { transform: translateX(35%); }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- Image with shine -->
   <div class="shine">
     <img 
-      src="Untitled%20(34).png" 
+      src="Untitled%20(36).png"
       alt="not trash music"
       id="cover"
     >
   </div>
 
+  <!-- Audio (hidden) -->
   <audio id="song" preload="auto">
     <source src="song.m4a" type="audio/mp4">
   </audio>
