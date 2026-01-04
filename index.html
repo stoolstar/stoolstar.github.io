@@ -20,27 +20,65 @@
       justify-content: center;
     }
 
+    .shine {
+      position: relative;
+      display: inline-block;
+    }
+
+    .shine::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        transparent 45%,
+        rgba(255,255,255,0.35) 50%,
+        transparent 55%
+      );
+      transform: translateX(-100%);
+      animation: shine 6s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% {
+        transform: translateX(-100%);
+      }
+      50% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
     img {
       width: 300px;
       height: 300px;
       object-fit: contain;
       cursor: pointer;
+      display: block;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Image -->
-  <img 
-    src="Untitled%20(34).png" 
-    alt="not trash music"
-    id="cover"
-  >
+  <!-- Image with shine -->
+  <div class="shine">
+    <img 
+      src="Untitled%20(34).png" 
+      alt="not trash music"
+      id="cover"
+    >
+  </div>
 
   <!-- Audio (hidden) -->
   <audio id="song" preload="auto">
-    <source src="song.m4a" type="audio/m4a">
+    <source src="song.m4a" type="audio/mp4">
   </audio>
 
   <script>
