@@ -24,13 +24,37 @@
       width: 500px;
       height: 500px;
       object-fit: contain;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
 
-  <img src="Untitled%20(34).png" alt="not trash music">
+  <!-- Image -->
+  <img 
+    src="Untitled%20(34).png" 
+    alt="not trash music"
+    id="cover"
+  >
+
+  <!-- Audio (hidden) -->
+  <audio id="song" preload="auto">
+    <source src="Identity Crisis.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    const img = document.getElementById("cover");
+    const audio = document.getElementById("song");
+
+    img.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+  </script>
 
 </body>
 </html>
