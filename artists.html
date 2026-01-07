@@ -21,6 +21,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      flex-direction: column;
     }
 
     .roster {
@@ -30,14 +31,35 @@
     }
 
     .so-far {
-      margin-top: 14px;
-      font-size: 12px;
-      opacity: 0.55;
+      margin-top: 10px;
+      font-size: 10px;
+      opacity: 0.45;
+    }
+
+    /* BACK LOGO */
+    .back-logo {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.6;
+    }
+
+    .back-logo img {
+      width: 34px;
+      height: auto;
+      cursor: pointer;
+      display: block;
+    }
+
+    .back-logo:hover {
+      opacity: 1;
     }
   </style>
 </head>
 
 <body>
+
   <div class="center">
     <div class="roster">
       ggsevv<br>
@@ -45,11 +67,16 @@
       ca$ketgirl<br>
       majin kinn<br>
       ekm
-
       <div class="so-far">
         so far….
       </div>
     </div>
   </div>
+
+  <!-- BACK TO HOME -->
+  <a href="index.html" class="back-logo">
+    <img src="Untitled%20(26).png" alt="back">
+  </a>
+
 </body>
 </html>
