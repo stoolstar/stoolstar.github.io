@@ -39,14 +39,41 @@
     .email a:hover {
       border-bottom-color: rgba(0,0,0,0.6);
     }
+
+    /* BACK LOGO */
+    .back-logo {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.6;
+    }
+
+    .back-logo img {
+      width: 34px;
+      height: auto;
+      cursor: pointer;
+      display: block;
+    }
+
+    .back-logo:hover {
+      opacity: 1;
+    }
   </style>
 </head>
 
 <body>
+
   <div class="center">
     <div class="email">
       <a href="mailto:nottrashmusic@gmail.com">nottrashmusic@gmail.com</a>
     </div>
   </div>
+
+  <!-- BACK TO HOME -->
+  <a href="index.html" class="back-logo">
+    <img src="Untitled%20(36).png" alt="back">
+  </a>
+
 </body>
 </html>
