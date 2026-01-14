@@ -27,8 +27,8 @@
     }
 
     .image {
-      max-width: 86vw;
-      max-height: 58vh;
+      max-width: 88vw;
+      max-height: 60vh;
       height: auto;
       display: block;
     }
@@ -111,14 +111,19 @@
   <div class="wrap">
 
     <img
-      src="NTM%20hoodie%20merch%20.png"
-      alt="NTM hoodie merch"
+      src="IMG_7516.jpeg"
+      alt="NTM Logo Hoodie"
       class="image"
     >
 
     <div class="title">NTM Logo Hoodie</div>
 
     <div class="controls">
+      <select id="color">
+        <option value="Red">Red</option>
+        <option value="Blue">Blue</option>
+      </select>
+
       <select id="size">
         <option value="XS">XS</option>
         <option value="S">S</option>
@@ -134,7 +139,7 @@
     </div>
 
     <div class="note">
-      local fulfillment. printed and handled in wichita, kansas. you’ll get a confirmation email from stripe after purchase.
+      local fulfillment. printed and handled in wichita, kansas. you’ll receive a confirmation email from stripe after purchase.
     </div>
 
   </div>
@@ -147,12 +152,13 @@
     const STRIPE_LINK = "https://buy.stripe.com/8x23cwgE18zxc4T6e59bO01";
 
     function goCheckout() {
+      const color = document.getElementById("color").value;
       const size = document.getElementById("size").value;
 
-      // Adds a reference to the URL for your own tracking later.
-      // Stripe may not store this automatically, but it’s still useful for future upgrades.
-      const url = STRIPE_LINK + (STRIPE_LINK.includes("?") ? "&" : "?") +
-        "client_reference_id=" + encodeURIComponent("NTM-HOODIE-" + size);
+      const url = STRIPE_LINK +
+        (STRIPE_LINK.includes("?") ? "&" : "?") +
+        "client_reference_id=" +
+        encodeURIComponent("NTM-HOODIE-" + color.toUpperCase() + "-" + size);
 
       window.location.href = url;
     }
