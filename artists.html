@@ -13,45 +13,79 @@
       height: 100%;
       background: #ffffff;
       font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
     }
 
-    .center {
+    .stage {
+      position: relative;
+      width: 100%;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      flex-direction: column;
-      padding: 60px 16px 140px;
-      box-sizing: border-box;
     }
 
-    .roster {
+    /* Center “containment” zone so names stay near middle */
+    .cluster {
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      transform: translate(-50%, -50%);
+      width: min(560px, 86vw);
+      height: min(520px, 60vh);
+      pointer-events: none;
+    }
+
+    .name {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translate(-50%, -50%);
       font-size: 16px;
       color: #000;
-      list-style: none;
-      padding: 0;
-      margin: 0;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      opacity: 0.95;
+
+      /* Each name gets its own slightly different motion */
+      animation:
+        driftA var(--t1) ease-in-out infinite alternate,
+        driftB var(--t2) ease-in-out infinite alternate,
+        float   var(--t3) ease-in-out infinite alternate;
     }
 
-    .roster li {
-      margin: 18px 0;
-      letter-spacing: 0.2px;
+    /* Medium speed, subtle range, feels free but contained */
+    @keyframes driftA {
+      0%   { transform: translate(-50%, -50%) translate(-14px, -10px); }
+      100% { transform: translate(-50%, -50%) translate( 14px,  10px); }
+    }
+
+    @keyframes driftB {
+      0%   { filter: blur(0px); }
+      100% { filter: blur(0px); }
+    }
+
+    @keyframes float {
+      0%   { letter-spacing: 0.2px; }
+      100% { letter-spacing: 0.35px; }
     }
 
     .so-far {
-      margin-top: 26px;
+      position: absolute;
+      left: 50%;
+      top: calc(46% + min(520px, 60vh) / 2 + 22px);
+      transform: translateX(-50%);
       font-size: 9px;
       opacity: 0.45;
+      text-align: center;
+      pointer-events: none;
     }
 
     /* BACK LOGO (raised higher) */
     .back-logo {
       position: fixed;
-      bottom: 70px;
+      bottom: 110px;
       left: 50%;
       transform: translateX(-50%);
       opacity: 0.6;
+      z-index: 5;
     }
 
     .back-logo img {
@@ -59,6 +93,7 @@
       height: auto;
       cursor: pointer;
       display: block;
+      pointer-events: auto;
     }
 
     .back-logo:hover {
@@ -69,26 +104,25 @@
 
 <body>
 
-  <div class="center">
-    <ul class="roster">
-      <li>ggsevv</li>
-      <li>ekm</li>
-      <li>wailer</li>
-      <li>ca$ketgirl</li>
-      <li>majin kinn</li>
-      <li>newkidd2fruity</li>
-      <li>M3PHiSTO</li>
-    </ul>
-
-    <div class="so-far">
-      so far….
+  <div class="stage">
+    <div class="cluster">
+      <!-- You can tweak --x / --y to change starting positions, and --t1/2/3 for speed -->
+      <div class="name" style="--x:50%; --y:14%; --t1:7.2s; --t2:8.4s; --t3:6.6s;">ggsevv</div>
+      <div class="name" style="--x:32%; --y:28%; --t1:8.1s; --t2:7.4s; --t3:6.9s;">ekm</div>
+      <div class="name" style="--x:68%; --y:30%; --t1:7.6s; --t2:8.9s; --t3:6.4s;">wailer</div>
+      <div class="name" style="--x:44%; --y:44%; --t1:8.7s; --t2:7.9s; --t3:7.1s;">ca$ketgirl</div>
+      <div class="name" style="--x:58%; --y:52%; --t1:7.9s; --t2:8.2s; --t3:6.8s;">majin kinn</div>
+      <div class="name" style="--x:36%; --y:62%; --t1:8.4s; --t2:7.6s; --t3:7.0s;">newkidd2fruity</div>
+      <div class="name" style="--x:64%; --y:70%; --t1:7.3s; --t2:8.6s; --t3:6.7s;">M3PHiSTO</div>
     </div>
-  </div>
 
-  <!-- BACK TO HOME -->
-  <a href="index.html" class="back-logo">
-    <img src="Untitled%20(36).png" alt="back">
-  </a>
+    <div class="so-far">so far….</div>
+
+    <!-- BACK TO HOME -->
+    <a href="index.html" class="back-logo">
+      <img src="Untitled%20(36).png" alt="back">
+    </a>
+  </div>
 
 </body>
 </html>
