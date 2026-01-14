@@ -15,24 +15,73 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    .center {
-      height: 100%;
+    .wrap {
+      min-height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       flex-direction: column;
+      padding: 28px 16px 90px;
+      box-sizing: border-box;
     }
 
-    .merch-image {
-      max-width: 80vw;
-      max-height: 60vh;
+    .image {
+      max-width: 86vw;
+      max-height: 58vh;
+      height: auto;
+      display: block;
     }
 
-    .coming-soon {
+    .title {
       margin-top: 14px;
+      font-size: 14px;
+      color: #000;
+      opacity: 0.9;
+    }
+
+    .controls {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    select {
       font-size: 12px;
+      padding: 8px 10px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background: #fff;
+      color: #000;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .buy {
+      font-size: 12px;
+      color: #000;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,0.25);
+      padding-bottom: 2px;
+      cursor: pointer;
+      background: transparent;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .buy:hover {
+      border-bottom-color: rgba(0,0,0,0.6);
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 10px;
       opacity: 0.55;
+      line-height: 1.4;
+      max-width: 520px;
     }
 
     /* BACK LOGO */
@@ -59,20 +108,55 @@
 
 <body>
 
-  <div class="center">
-    <img 
+  <div class="wrap">
+
+    <img
       src="NTM%20hoodie%20merch%20.png"
       alt="NTM hoodie merch"
-      class="merch-image"
+      class="image"
     >
-    <div class="coming-soon">
-      coming soon
+
+    <div class="title">NTM Logo Hoodie</div>
+
+    <div class="controls">
+      <select id="size">
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M" selected>M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="2XL">2XL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
+
+      <button class="buy" onclick="goCheckout()">buy</button>
     </div>
+
+    <div class="note">
+      local fulfillment. printed and handled in wichita, kansas. you’ll get a confirmation email from stripe after purchase.
+    </div>
+
   </div>
 
   <a href="index.html" class="back-logo">
     <img src="Untitled%20(36).png" alt="back">
   </a>
+
+  <script>
+    const STRIPE_LINK = "https://buy.stripe.com/8x23cwgE18zxc4T6e59bO01";
+
+    function goCheckout() {
+      const size = document.getElementById("size").value;
+
+      // Adds a reference to the URL for your own tracking later.
+      // Stripe may not store this automatically, but it’s still useful for future upgrades.
+      const url = STRIPE_LINK + (STRIPE_LINK.includes("?") ? "&" : "?") +
+        "client_reference_id=" + encodeURIComponent("NTM-HOODIE-" + size);
+
+      window.location.href = url;
+    }
+  </script>
 
 </body>
 </html>
