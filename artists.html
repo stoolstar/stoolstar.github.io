@@ -1,128 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>artists</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artists | nottrashmusic</title>
 
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #ffffff;
+    :root{
+      --pad: clamp(18px, 4vw, 44px);
+      --fs: clamp(12px, 1.35vw, 15px);
+    }
+
+    body{
+      margin:0;
+      padding:0;
+      background:#fff;
+      color:#000;
       font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
+      height:100vh;
+      overflow:hidden;
+      position:relative;
     }
 
-    .stage {
-      position: relative;
-      width: 100%;
-      height: 100%;
+    /* subtle “y2k empty space” layout area */
+    .stage{
+      position:absolute;
+      inset: var(--pad);
+      /* keeps names from hugging edges on tall phone screens */
+      min-height: calc(100vh - (var(--pad) * 2));
     }
 
-    /* Center “containment” zone so names stay near middle */
-    .cluster {
-      position: absolute;
-      left: 50%;
-      top: 46%;
-      transform: translate(-50%, -50%);
-      width: min(560px, 86vw);
-      height: min(520px, 60vh);
-      pointer-events: none;
-    }
-
-    .name {
-      position: absolute;
-      left: var(--x);
-      top: var(--y);
-      transform: translate(-50%, -50%);
-      font-size: 16px;
-      color: #000;
+    .name{
+      position:absolute;
+      font-size: var(--fs);
       letter-spacing: 0.2px;
+      line-height: 1;
       white-space: nowrap;
-      opacity: 0.95;
-
-      /* Each name gets its own slightly different motion */
-      animation:
-        driftA var(--t1) ease-in-out infinite alternate,
-        driftB var(--t2) ease-in-out infinite alternate,
-        float   var(--t3) ease-in-out infinite alternate;
+      opacity: 0.92;
+      user-select: none;
+      text-transform: lowercase;
     }
 
-    /* Medium speed, subtle range, feels free but contained */
-    @keyframes driftA {
-      0%   { transform: translate(-50%, -50%) translate(-14px, -10px); }
-      100% { transform: translate(-50%, -50%) translate( 14px,  10px); }
+    /* click-ready styling for later dropdown behavior */
+    .name a{
+      color:#000;
+      text-decoration:none;
+      pointer-events:auto;
+    }
+    .name a:hover{ opacity:0.6; }
+
+    /* placements (desktop + mobile friendly using vw/vh) */
+    .p1{ left: 6vw;  top: 18vh; }
+    .p2{ left: 18vw; top: 44vh; }
+    .p3{ left: 52vw; top: 28vh; }
+    .p4{ left: 68vw; top: 52vh; }
+    .p5{ left: 10vw; top: 72vh; }
+    .p6{ left: 56vw; top: 72vh; }
+    .p7{ left: 76vw; top: 36vh; }
+
+    /* tighten for very narrow screens so it stays airy but readable */
+    @media (max-width: 420px){
+      .p1{ left: 7vw;  top: 16vh; }
+      .p2{ left: 12vw; top: 42vh; }
+      .p3{ left: 48vw; top: 26vh; }
+      .p4{ left: 62vw; top: 54vh; }
+      .p5{ left: 9vw;  top: 70vh; }
+      .p6{ left: 50vw; top: 76vh; }
+      .p7{ left: 70vw; top: 38vh; }
     }
 
-    @keyframes driftB {
-      0%   { filter: blur(0px); }
-      100% { filter: blur(0px); }
-    }
-
-    @keyframes float {
-      0%   { letter-spacing: 0.2px; }
-      100% { letter-spacing: 0.35px; }
-    }
-
-    .so-far {
-      position: absolute;
-      left: 50%;
-      top: calc(46% + min(520px, 60vh) / 2 + 22px);
+    /* back button (kept) */
+    .back-button{
+      position:absolute;
+      left:50%;
+      bottom: 70px;
       transform: translateX(-50%);
-      font-size: 9px;
-      opacity: 0.45;
-      text-align: center;
-      pointer-events: none;
+      opacity:0.75;
+      transition: opacity 0.2s ease;
+      z-index: 10;
     }
-
-    /* BACK LOGO (raised higher) */
-    .back-logo {
-      position: fixed;
-      bottom: 110px;
-      left: 50%;
-      transform: translateX(-50%);
-      opacity: 0.6;
-      z-index: 5;
+    .back-button img{
+      width:24px;
+      height:auto;
+      display:block;
     }
-
-    .back-logo img {
-      width: 34px;
-      height: auto;
-      cursor: pointer;
-      display: block;
-      pointer-events: auto;
-    }
-
-    .back-logo:hover {
-      opacity: 1;
-    }
+    .back-button:hover{ opacity:0.45; }
   </style>
 </head>
 
 <body>
-
   <div class="stage">
-    <div class="cluster">
-      <!-- You can tweak --x / --y to change starting positions, and --t1/2/3 for speed -->
-      <div class="name" style="--x:50%; --y:14%; --t1:7.2s; --t2:8.4s; --t3:6.6s;">ggsevv</div>
-      <div class="name" style="--x:32%; --y:28%; --t1:8.1s; --t2:7.4s; --t3:6.9s;">ekm</div>
-      <div class="name" style="--x:68%; --y:30%; --t1:7.6s; --t2:8.9s; --t3:6.4s;">wailer</div>
-      <div class="name" style="--x:44%; --y:44%; --t1:8.7s; --t2:7.9s; --t3:7.1s;">ca$ketgirl</div>
-      <div class="name" style="--x:58%; --y:52%; --t1:7.9s; --t2:8.2s; --t3:6.8s;">majin kinn</div>
-      <div class="name" style="--x:36%; --y:62%; --t1:8.4s; --t2:7.6s; --t3:7.0s;">newkidd2fruity</div>
-      <div class="name" style="--x:64%; --y:70%; --t1:7.3s; --t2:8.6s; --t3:6.7s;">M3PHiSTO</div>
+    <!-- all lowercase + added artists -->
+    <div class="name p1"><a href="#" data-artist="ggsevv">ggsevv</a></div>
+    <div class="name p2"><a href="#" data-artist="ekm">ekm</a></div>
+    <div class="name p3"><a href="#" data-artist="vic-zinner">vic zinner</a></div>
+    <div class="name p4"><a href="#" data-artist="wailer">wailer</a></div>
+    <div class="name p5"><a href="#" data-artist="ca$ketgirl">ca$ketgirl</a></div>
+    <div class="name p6"><a href="#" data-artist="majin-kinn">majin kinn</a></div>
+    <div class="name p7"><a href="#" data-artist="robogeist">robogeist</a></div>
+
+    <!-- requested “0 instead of O” spelling -->
+    <div class="name" style="left: 34vw; top: 58vh;">
+      <a href="#" data-artist="m3phist0">m3phist0</a>
     </div>
-
-    <div class="so-far">so far….</div>
-
-    <!-- BACK TO HOME -->
-    <a href="index.html" class="back-logo">
-      <img src="Untitled%20(36).png" alt="back">
-    </a>
   </div>
 
+  <a href="index.html" class="back-button">
+    <img src="Untitled%20(36).png" alt="Back" />
+  </a>
 </body>
 </html>
