@@ -29,22 +29,18 @@
       width: 220px;
       height: auto;
       margin-bottom: 18px;
+      cursor: pointer;
     }
 
     .email {
       font-size: 16px;
       color: #000;
+      pointer-events: none;
     }
 
-    .email a {
-      color: #000;
-      text-decoration: none;
+    .email span {
       border-bottom: 1px solid rgba(0,0,0,0.25);
       padding-bottom: 2px;
-    }
-
-    .email a:hover {
-      border-bottom-color: rgba(0,0,0,0.6);
     }
 
     /* BACK LOGO */
@@ -72,16 +68,18 @@
 <body>
 
   <div class="center">
-    <img 
-      src="Ntm%20mail%20man%20.png" 
-      alt="contact mascot" 
-      class="mascot"
-    >
+    <!-- CLICKABLE MASCOT (hidden mail link) -->
+    <a href="mailto:nottrashmusic@gmail.com" aria-label="email not trash music">
+      <img 
+        src="Ntm%20mail%20man%20.png" 
+        alt="contact mascot" 
+        class="mascot"
+      >
+    </a>
 
+    <!-- DISPLAY ONLY EMAIL -->
     <div class="email">
-      <a href="mailto:nottrashmusic@gmail.com">
-        nottrashmusic@gmail.com
-      </a>
+      <span>nottrashmusic@gmail.com</span>
     </div>
   </div>
 
