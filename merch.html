@@ -22,12 +22,10 @@
       justify-content: center;
       text-align: center;
       flex-direction: column;
-      /* More dead space */
       padding: 70px 16px 140px;
       box-sizing: border-box;
     }
 
-    /* Make the product feel ~40% smaller */
     .image {
       max-width: 62vw;
       max-height: 38vh;
@@ -77,12 +75,14 @@
       letter-spacing: 0.9px;
     }
 
+    /* CONDENSED DESCRIPTION */
     .note {
-      margin-top: 12px;
+      margin-top: 14px;
       font-size: 9.5px;
       opacity: 0.55;
       line-height: 1.55;
-      max-width: 440px;
+      max-width: 300px;   /* tighter column */
+      padding: 0 6px;
     }
 
     /* BACK LOGO */
@@ -150,7 +150,6 @@
   </a>
 
   <script>
-    // Allow dropdowns to open, but prevent changing selection.
     const color = document.getElementById("color");
     const size = document.getElementById("size");
 
