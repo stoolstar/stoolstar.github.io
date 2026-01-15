@@ -67,7 +67,8 @@
       mix-blend-mode: screen;
       filter: blur(2px) brightness(1.25);
 
-      transform: translateX(-35%);
+      /* start mid-pass so it shimmers immediately */
+      transform: translateX(-5%);
       animation: shine 14s linear infinite;
     }
 
@@ -129,23 +130,6 @@
       background: rgba(255,255,255,0.9);
     }
 
-    .menu-hint {
-      font-size: 11px;
-      color: rgba(0,0,0,0.55);
-      letter-spacing: 0.2px;
-      user-select: none;
-    }
-
-    /* subtle “digital” micro detail */
-    .menu-hint::before {
-      content: "▲";
-      display: inline-block;
-      margin-right: 6px;
-      transform: translateY(-1px);
-      opacity: 0.55;
-    }
-
-    /* keep it looking airy on small screens */
     @media (max-width: 420px) {
       .menu-panel {
         gap: 12px;
@@ -175,7 +159,6 @@
       <a href="artists.html">artists</a>
       <a href="merch.html">merch</a>
     </div>
-    <div class="menu-hint">tap logo</div>
   </div>
 
   <audio id="song" preload="auto">
@@ -195,21 +178,17 @@
     }
 
     img.addEventListener("click", (e) => {
-      // audio toggle
       if (audio.paused) audio.play();
       else audio.pause();
 
-      // menu toggle
       toggleMenu();
       e.stopPropagation();
     });
 
-    // click outside closes menu
     document.addEventListener("click", () => {
       if (menuOpen) toggleMenu(false);
     });
 
-    // prevent outside-click close when clicking the menu itself
     menuPanel.addEventListener("click", (e) => e.stopPropagation());
   </script>
 
