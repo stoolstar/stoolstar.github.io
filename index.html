@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>nottrashmusic</title>
+  <title>not trash music</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -23,7 +23,7 @@
       overflow: hidden;
     }
 
-    /* NEW: wrapper we can “lens zoom” */
+    /* wrapper we “lens zoom” */
     .stage {
       display: flex;
       flex-direction: column;
@@ -31,32 +31,33 @@
       justify-content: center;
       transform: scale(1);
       transform-origin: center;
-      transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1);
+      /* slower by ~10%, but with a snappier curve so it gets there quickly */
+      transition: transform 460ms cubic-bezier(0.12, 0.9, 0.22, 1);
       will-change: transform;
     }
 
-    /* zoom state */
+    /* closer by ~5% */
     .stage.zoomed {
-      transform: scale(1.3);
+      transform: scale(1.365);
     }
 
-    /* make sure the zoom doesn’t clip on small screens */
+    /* mobile safety so nothing clips */
     @media (max-width: 520px) {
       .stage.zoomed {
-        transform: scale(1.22);
+        transform: scale(1.28);
       }
     }
 
     .shine {
       position: relative;
       display: inline-block;
-      overflow: hidden;
       width: 75vmin;
       height: 75vmin;
       max-width: 560px;
       max-height: 560px;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      overflow: visible; /* important: we are masking the shine now, no box edges */
     }
 
     img {
@@ -66,19 +67,21 @@
       cursor: pointer;
       display: block;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
+    /*
+      FIX: prevent “shine box” being visible.
+      We mask the shine to the actual PNG silhouette so shimmer never appears in the transparent square area.
+    */
     .shine::after {
       content: "";
       position: absolute;
-      top: -60%;
-      left: -60%;
-      width: 220%;
-      height: 220%;
+      inset: 0;
       z-index: 3;
       pointer-events: none;
 
+      /* Shine gradient that moves across */
       background: linear-gradient(
         120deg,
         transparent 35%,
@@ -91,6 +94,18 @@
       mix-blend-mode: screen;
       filter: blur(2px) brightness(1.25);
 
+      /* Mask to logo pixels */
+      -webkit-mask-image: url("Untitled%20(36).png");
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      -webkit-mask-size: contain;
+
+      mask-image: url("Untitled%20(36).png");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+
+      /* Faster overall shine timing stays as you liked */
       animation: shine 7.6s linear infinite;
       animation-delay: -3.8s; /* start mid-pass */
     }
@@ -106,7 +121,6 @@
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: 10px;
     }
 
     .menu-panel {
@@ -164,7 +178,6 @@
       }
     }
 
-    /* Respect people who prefer reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .stage { transition: none; }
       .menu-panel { transition: none; }
@@ -186,9 +199,9 @@
 
     <div class="menu" aria-label="site menu">
       <div class="menu-panel" id="menuPanel">
-        <a href="contact.html">contact</a>
-        <a href="artists.html">artists</a>
-        <a href="merch.html">merch</a>
+        <a class="navlink" href="contact.html">contact</a>
+        <a class="navlink" href="artists.html">artists</a>
+        <a class="navlink" href="merch.html">merch</a>
       </div>
     </div>
   </div>
@@ -202,33 +215,51 @@
     const audio = document.getElementById("song");
     const menuPanel = document.getElementById("menuPanel");
     const stage = document.getElementById("stage");
+    const navlinks = document.querySelectorAll(".navlink");
 
     let menuOpen = false;
 
     function toggleMenu(open) {
       menuOpen = typeof open === "boolean" ? open : !menuOpen;
-
       menuPanel.classList.toggle("open", menuOpen);
       stage.classList.toggle("zoomed", menuOpen);
     }
 
+    // Click logo = toggle audio and reveal menu + zoom
     img.addEventListener("click", (e) => {
-      // audio toggle
       if (audio.paused) audio.play();
       else audio.pause();
 
-      // menu + “lens zoom”
       toggleMenu();
       e.stopPropagation();
     });
 
-    // click outside closes + zooms back out
+    // Click outside closes menu + zoom out
     document.addEventListener("click", () => {
       if (menuOpen) toggleMenu(false);
     });
 
-    // keep clicks inside menu from closing
+    // Keep clicks inside menu from closing it
     menuPanel.addEventListener("click", (e) => e.stopPropagation());
+
+    /*
+      Back button behavior:
+      If user navigates to another page and then returns via browser back,
+      auto-open menu + zoom, but do NOT touch audio.
+    */
+    window.addEventListener("pageshow", (e) => {
+      const navEntry = performance.getEntriesByType("navigation")[0];
+      const isBackForward = e.persisted || (navEntry && navEntry.type === "back_forward");
+
+      if (isBackForward) {
+        toggleMenu(true); // open menu + zoom
+        // do not autoplay or restart audio here
+      }
+    });
+
+    // Optional: if you want menu to stay open when leaving index (for bfcache)
+    // we do nothing special here. Browser usually preserves state automatically.
+    // This handler just ensures the behavior even if state is reset.
   </script>
 
 </body>
