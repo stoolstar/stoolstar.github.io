@@ -25,22 +25,38 @@
       flex-direction: column;
     }
 
-    .mascot {
+    /* MASCOT WRAPPER */
+    .mascot-wrap {
+      position: relative;
       width: 220px;
-      height: auto;
       margin-bottom: 18px;
+    }
+
+    .mascot-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* SMALLER CLICK ZONE (envelope area) */
+    .mail-hitbox {
+      position: absolute;
+      top: 32%;
+      left: 20%;
+      width: 60%;
+      height: 30%;
       cursor: pointer;
+    }
+
+    .mail-hitbox a {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .email {
       font-size: 16px;
       color: #000;
-      pointer-events: none;
-    }
-
-    .email span {
-      border-bottom: 1px solid rgba(0,0,0,0.25);
-      padding-bottom: 2px;
     }
 
     /* BACK LOGO */
@@ -68,19 +84,26 @@
 <body>
 
   <div class="center">
-    <!-- CLICKABLE MASCOT (hidden mail link) -->
-    <a href="mailto:nottrashmusic@gmail.com" aria-label="email not trash music">
+
+    <!-- MASCOT -->
+    <div class="mascot-wrap">
       <img 
         src="Ntm%20mail%20man%20.png" 
-        alt="contact mascot" 
-        class="mascot"
+        alt="contact mascot"
+        class="mascot-img"
       >
-    </a>
 
-    <!-- DISPLAY ONLY EMAIL -->
-    <div class="email">
-      <span>nottrashmusic@gmail.com</span>
+      <!-- HIDDEN / TIGHT CLICK ZONE -->
+      <div class="mail-hitbox">
+        <a href="mailto:nottrashmusic@gmail.com" aria-label="email not trash music"></a>
+      </div>
     </div>
+
+    <!-- DISPLAY ONLY EMAIL (no underline, no click) -->
+    <div class="email">
+      nottrashmusic@gmail.com
+    </div>
+
   </div>
 
   <!-- BACK TO HOME -->
