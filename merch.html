@@ -59,21 +59,21 @@
       outline: none;
     }
 
+    /* Prevent changing selection but allow opening */
+    .locked-select option {
+      pointer-events: none;
+    }
+
     .buy {
       font-size: 12px;
       color: #000;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(0,0,0,0.25);
-      padding-bottom: 2px;
-      cursor: pointer;
-      background: transparent;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-    }
-
-    .buy:hover {
-      border-bottom-color: rgba(0,0,0,0.6);
+      border: 1px solid rgba(0,0,0,0.3);
+      background: #fff;
+      padding: 8px 14px;
+      cursor: not-allowed;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .note {
@@ -82,6 +82,23 @@
       opacity: 0.55;
       line-height: 1.5;
       max-width: 560px;
+    }
+
+    /* LOCK CONTROLS */
+    .coming-soon-lock {
+      position: relative;
+    }
+
+    .coming-soon-lock::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      cursor: not-allowed;
+    }
+
+    .lock-dim {
+      opacity: 0.65;
     }
 
     /* BACK LOGO */
@@ -118,28 +135,30 @@
 
     <div class="title">NTM Logo Hoodie</div>
 
-    <div class="controls">
-      <select id="color">
-        <option value="Red">Red</option>
-        <option value="Blue">Blue</option>
-      </select>
+    <div class="coming-soon-lock">
+      <div class="controls lock-dim">
+        <select class="locked-select">
+          <option selected>Red</option>
+          <option>Blue</option>
+        </select>
 
-      <select id="size">
-        <option value="XS">XS</option>
-        <option value="S">S</option>
-        <option value="M" selected>M</option>
-        <option value="L">L</option>
-        <option value="XL">XL</option>
-        <option value="2XL">2XL</option>
-        <option value="3XL">3XL</option>
-        <option value="4XL">4XL</option>
-      </select>
+        <select class="locked-select">
+          <option>XS</option>
+          <option>S</option>
+          <option selected>M</option>
+          <option>L</option>
+          <option>XL</option>
+          <option>2XL</option>
+          <option>3XL</option>
+          <option>4XL</option>
+        </select>
 
-      <button class="buy" onclick="goCheckout()">buy</button>
+        <button class="buy" disabled>Coming Soon</button>
+      </div>
     </div>
 
     <div class="note">
-      local fulfillment. printed by alan-lee screen printing in wichita, ks. lots of love and quality control goes into each hoodie. you’ll receive a confirmation email from stripe after purchase.
+      local fulfillment. printed by Allen-Lee Screen Printing in wichita, ks. lots of love and quality control goes into each hoodie. you’ll receive a confirmation email from stripe after purchase.
     </div>
 
   </div>
@@ -147,22 +166,6 @@
   <a href="index.html" class="back-logo">
     <img src="Untitled%20(36).png" alt="back">
   </a>
-
-  <script>
-    const STRIPE_LINK = "https://buy.stripe.com/8x23cwgE18zxc4T6e59bO01";
-
-    function goCheckout() {
-      const color = document.getElementById("color").value;
-      const size = document.getElementById("size").value;
-
-      const url = STRIPE_LINK +
-        (STRIPE_LINK.includes("?") ? "&" : "?") +
-        "client_reference_id=" +
-        encodeURIComponent("NTM-HOODIE-" + color.toUpperCase() + "-" + size);
-
-      window.location.href = url;
-    }
-  </script>
 
 </body>
 </html>
