@@ -12,6 +12,7 @@
       width: 100%;
       height: 100%;
       background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
@@ -19,6 +20,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
     }
 
     .shine {
@@ -29,6 +31,8 @@
       height: 75vmin;
       max-width: 560px;
       max-height: 560px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     img {
@@ -72,22 +76,85 @@
       100% { transform: translateX(35%); }
     }
 
-    .nav-links {
-      margin-top: 18px;
-      font-size: 12px;
-      display: flex;
-      gap: 22px;
+    /* Y2K mini menu */
+    .menu {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .nav-links a {
+    .menu-panel {
+      display: flex;
+      gap: 18px;
+      padding: 9px 12px;
+      border: 1px solid rgba(0,0,0,0.18);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      transform: translateY(-6px) scale(0.98);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .menu-panel.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .menu-panel a {
+      font-size: 12px;
+      letter-spacing: 0.2px;
       color: #000;
       text-decoration: none;
-      border-bottom: 1px solid rgba(0,0,0,0.25);
-      padding-bottom: 2px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(0,0,0,0.12);
+      background: rgba(255,255,255,0.65);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+      text-transform: lowercase;
+      outline: none;
     }
 
-    .nav-links a:hover {
-      border-bottom-color: rgba(0,0,0,0.6);
+    .menu-panel a:hover {
+      border-color: rgba(0,0,0,0.28);
+      background: rgba(255,255,255,0.9);
+    }
+
+    .menu-hint {
+      font-size: 11px;
+      color: rgba(0,0,0,0.55);
+      letter-spacing: 0.2px;
+      user-select: none;
+    }
+
+    /* subtle “digital” micro detail */
+    .menu-hint::before {
+      content: "▲";
+      display: inline-block;
+      margin-right: 6px;
+      transform: translateY(-1px);
+      opacity: 0.55;
+    }
+
+    /* keep it looking airy on small screens */
+    @media (max-width: 420px) {
+      .menu-panel {
+        gap: 12px;
+        padding: 8px 10px;
+        border-radius: 12px;
+      }
+      .menu-panel a {
+        padding: 6px 9px;
+      }
     }
   </style>
 </head>
@@ -95,17 +162,20 @@
 <body>
 
   <div class="shine">
-    <img 
+    <img
       src="Untitled%20(36).png"
       alt="not trash music"
       id="cover"
     >
   </div>
 
-  <div class="nav-links">
-    <a href="contact.html">contact</a>
-    <a href="artists.html">artists</a>
-    <a href="merch.html">merch</a>
+  <div class="menu" aria-label="site menu">
+    <div class="menu-panel" id="menuPanel">
+      <a href="contact.html">contact</a>
+      <a href="artists.html">artists</a>
+      <a href="merch.html">merch</a>
+    </div>
+    <div class="menu-hint">tap logo</div>
   </div>
 
   <audio id="song" preload="auto">
@@ -115,14 +185,32 @@
   <script>
     const img = document.getElementById("cover");
     const audio = document.getElementById("song");
+    const menuPanel = document.getElementById("menuPanel");
 
-    img.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
+    let menuOpen = false;
+
+    function toggleMenu(open) {
+      menuOpen = typeof open === "boolean" ? open : !menuOpen;
+      menuPanel.classList.toggle("open", menuOpen);
+    }
+
+    img.addEventListener("click", (e) => {
+      // audio toggle
+      if (audio.paused) audio.play();
+      else audio.pause();
+
+      // menu toggle
+      toggleMenu();
+      e.stopPropagation();
     });
+
+    // click outside closes menu
+    document.addEventListener("click", () => {
+      if (menuOpen) toggleMenu(false);
+    });
+
+    // prevent outside-click close when clicking the menu itself
+    menuPanel.addEventListener("click", (e) => e.stopPropagation());
   </script>
 
 </body>
