@@ -22,83 +22,67 @@
       justify-content: center;
       text-align: center;
       flex-direction: column;
-      padding: 28px 16px 90px;
+      /* More dead space */
+      padding: 70px 16px 140px;
       box-sizing: border-box;
     }
 
+    /* Make the product feel ~40% smaller */
     .image {
-      max-width: 88vw;
-      max-height: 60vh;
+      max-width: 62vw;
+      max-height: 38vh;
       height: auto;
       display: block;
     }
 
     .title {
-      margin-top: 14px;
-      font-size: 14px;
+      margin-top: 10px;
+      font-size: 12px;
       color: #000;
       opacity: 0.9;
+      letter-spacing: 0.2px;
     }
 
     .controls {
-      margin-top: 12px;
+      margin-top: 10px;
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
     }
 
     select {
-      font-size: 12px;
-      padding: 8px 10px;
-      border: 1px solid rgba(0,0,0,0.2);
+      font-size: 11px;
+      padding: 7px 10px;
+      border: 1px solid rgba(0,0,0,0.18);
       background: #fff;
       color: #000;
-      border-radius: 6px;
+      border-radius: 8px;
       outline: none;
-    }
-
-    /* Prevent changing selection but allow opening */
-    .locked-select option {
-      pointer-events: none;
+      height: 34px;
     }
 
     .buy {
-      font-size: 12px;
+      font-size: 11px;
       color: #000;
-      border: 1px solid rgba(0,0,0,0.3);
+      border: 1px solid rgba(0,0,0,0.22);
       background: #fff;
-      padding: 8px 14px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      height: 34px;
       cursor: not-allowed;
-      opacity: 0.7;
+      opacity: 0.65;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.9px;
     }
 
     .note {
-      margin-top: 10px;
-      font-size: 10px;
+      margin-top: 12px;
+      font-size: 9.5px;
       opacity: 0.55;
-      line-height: 1.5;
-      max-width: 560px;
-    }
-
-    /* LOCK CONTROLS */
-    .coming-soon-lock {
-      position: relative;
-    }
-
-    .coming-soon-lock::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      cursor: not-allowed;
-    }
-
-    .lock-dim {
-      opacity: 0.65;
+      line-height: 1.55;
+      max-width: 440px;
     }
 
     /* BACK LOGO */
@@ -107,11 +91,11 @@
       bottom: 22px;
       left: 50%;
       transform: translateX(-50%);
-      opacity: 0.6;
+      opacity: 0.55;
     }
 
     .back-logo img {
-      width: 34px;
+      width: 32px;
       height: auto;
       cursor: pointer;
       display: block;
@@ -135,30 +119,28 @@
 
     <div class="title">NTM Logo Hoodie</div>
 
-    <div class="coming-soon-lock">
-      <div class="controls lock-dim">
-        <select class="locked-select">
-          <option selected>Red</option>
-          <option>Blue</option>
-        </select>
+    <div class="controls">
+      <select id="color">
+        <option value="Red" selected>Red</option>
+        <option value="Blue">Blue</option>
+      </select>
 
-        <select class="locked-select">
-          <option>XS</option>
-          <option>S</option>
-          <option selected>M</option>
-          <option>L</option>
-          <option>XL</option>
-          <option>2XL</option>
-          <option>3XL</option>
-          <option>4XL</option>
-        </select>
+      <select id="size">
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M" selected>M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+        <option value="2XL">2XL</option>
+        <option value="3XL">3XL</option>
+        <option value="4XL">4XL</option>
+      </select>
 
-        <button class="buy" disabled>Coming Soon</button>
-      </div>
+      <button class="buy" disabled>Coming Soon</button>
     </div>
 
     <div class="note">
-      local fulfillment. printed by Allen-Lee Screen Printing in wichita, ks. lots of love and quality control goes into each hoodie. you’ll receive a confirmation email from stripe after purchase.
+      Local fulfillment. Printed by Allen-Lee Screen Printing in Wichita, KS. Lots of love and quality control goes into each hoodie. You’ll receive a confirmation email from Stripe after purchase.
     </div>
 
   </div>
@@ -166,6 +148,20 @@
   <a href="index.html" class="back-logo">
     <img src="Untitled%20(36).png" alt="back">
   </a>
+
+  <script>
+    // Allow dropdowns to open, but prevent changing selection.
+    const color = document.getElementById("color");
+    const size = document.getElementById("size");
+
+    const locked = {
+      color: color.value,
+      size: size.value
+    };
+
+    color.addEventListener("change", () => { color.value = locked.color; });
+    size.addEventListener("change", () => { size.value = locked.size; });
+  </script>
 
 </body>
 </html>
