@@ -67,9 +67,11 @@
       mix-blend-mode: screen;
       filter: blur(2px) brightness(1.25);
 
-      /* start mid-pass so it shimmers immediately */
-      transform: translateX(-5%);
-      animation: shine 14s linear infinite;
+      /* Faster overall: 14s -> 7.6s (about 40% faster + extra 10%) */
+      animation: shine 7.6s linear infinite;
+
+      /* Start mid-pass so it’s already on the logo at load */
+      animation-delay: -3.8s;
     }
 
     @keyframes shine {
@@ -77,7 +79,6 @@
       100% { transform: translateX(35%); }
     }
 
-    /* Y2K mini menu */
     .menu {
       margin-top: 14px;
       display: inline-flex;
