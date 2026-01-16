@@ -7,19 +7,19 @@
 
   <style>
     :root{
-      --pad: 22;          /* edge padding in px */
-      --fs: 14;           /* base font size in px */
-      --minGap: 20;       /* minimum gap between items (px) */
-      --clusterTop: 10;   /* percent */
-      --clusterBottom: 90;/* percent */
-      --clusterLeft: 6;   /* percent */
-      --clusterRight: 94; /* percent */
+      --pad: 22;
+      --fs: 14;
+      --minGap: 20;
+      --clusterTop: 10;
+      --clusterBottom: 90;
+      --clusterLeft: 6;
+      --clusterRight: 94;
     }
 
     body{
       margin:0;
       padding:0;
-      background:#fff;
+      background:#ffffff;
       color:#000;
       font-family: Arial, Helvetica, sans-serif;
       height:100vh;
@@ -46,13 +46,19 @@
       color:#000;
       text-decoration:none;
     }
-    .name a:hover{ opacity:0.6; }
+
+    .name a:hover{
+      opacity:0.6;
+    }
 
     .back-button{
       opacity:0.75;
       z-index:10;
     }
-    .back-button:hover{ opacity:0.45; }
+
+    .back-button:hover{
+      opacity:0.45;
+    }
 
     .back-button img{
       width:24px;
@@ -60,7 +66,6 @@
       display:block;
     }
 
-    /* slightly smaller on very small screens */
     @media (max-width: 420px){
       :root{ --fs: 13; --pad: 18; }
       .back-button img{ width:22px; }
@@ -70,17 +75,16 @@
 
 <body>
   <div class="stage" id="stage">
-    <!-- artists (now includes vic zinner) -->
-    <div class="name"><a href="#" data-artist="ggsevv">ggsevv</a></div>
-    <div class="name"><a href="#" data-artist="ekm">ekm</a></div>
-    <div class="name"><a href="#" data-artist="vic-zinner">vic zinner</a></div>
-    <div class="name"><a href="#" data-artist="robogeist">robogeist</a></div>
-    <div class="name"><a href="#" data-artist="wailer">wailer</a></div>
-    <div class="name"><a href="#" data-artist="m3phist0">m3phist0</a></div>
-    <div class="name"><a href="#" data-artist="ca$ketgirl">ca$ketgirl</a></div>
-    <div class="name"><a href="#" data-artist="majin-kinn">majin kinn</a></div>
+    <!-- artists -->
+    <div class="name"><a href="#">ggsevv</a></div>
+    <div class="name"><a href="#">ekm</a></div>
+    <div class="name"><a href="#">vic zinner</a></div>
+    <div class="name"><a href="#">robogeist</a></div>
+    <div class="name"><a href="#">wailer</a></div>
+    <div class="name"><a href="#">ca$ketgirl</a></div>
+    <div class="name"><a href="#">majin kinn</a></div>
 
-    <!-- back button (random placed, avoids text) -->
+    <!-- back button -->
     <a href="index.html" class="back-button" id="backBtn" aria-label="Back">
       <img src="Untitled%20(36).png" alt="Back" />
     </a>
@@ -92,20 +96,17 @@
       const names = Array.from(stage.querySelectorAll(".name"));
       const backBtn = document.getElementById("backBtn");
 
-      // Config
       const root = getComputedStyle(document.documentElement);
-      const PAD = parseInt(root.getPropertyValue("--pad").trim(), 10) || 22;
-      const MIN_GAP = parseInt(root.getPropertyValue("--minGap").trim(), 10) || 20;
+      const PAD = parseInt(root.getPropertyValue("--pad"), 10) || 22;
+      const MIN_GAP = parseInt(root.getPropertyValue("--minGap"), 10) || 20;
 
       const CL_TOP = (parseFloat(root.getPropertyValue("--clusterTop")) || 10) / 100;
       const CL_BOT = (parseFloat(root.getPropertyValue("--clusterBottom")) || 90) / 100;
       const CL_LFT = (parseFloat(root.getPropertyValue("--clusterLeft")) || 6) / 100;
       const CL_RGT = (parseFloat(root.getPropertyValue("--clusterRight")) || 94) / 100;
 
-      // Utility: random between
       const rand = (min, max) => Math.random() * (max - min) + min;
 
-      // Utility: rect overlap with padding
       function overlaps(r1, r2, extra = 0) {
         return !(
           r1.right + extra < r2.left ||
@@ -115,36 +116,28 @@
         );
       }
 
-      // Place element at x/y
       function place(el, x, y) {
         el.style.left = x + "px";
         el.style.top = y + "px";
       }
 
-      // Get stage bounds for placing in a "composition band" (lots of empty space)
       function getBounds() {
         const w = window.innerWidth;
         const h = window.innerHeight;
-
-        const left = Math.round(w * CL_LFT) + PAD;
-        const right = Math.round(w * CL_RGT) - PAD;
-        const top = Math.round(h * CL_TOP) + PAD;
-        const bottom = Math.round(h * CL_BOT) - PAD;
-
-        return { w, h, left, right, top, bottom };
+        return {
+          w, h,
+          left: Math.round(w * CL_LFT) + PAD,
+          right: Math.round(w * CL_RGT) - PAD,
+          top: Math.round(h * CL_TOP) + PAD,
+          bottom: Math.round(h * CL_BOT) - PAD
+        };
       }
 
-      // Attempt to randomly place a set of elements without collisions
       function layout() {
-        // Reset positions so we can measure accurately
-        names.forEach(n => { n.style.left = "-9999px"; n.style.top = "-9999px"; });
-        backBtn.style.left = "-9999px";
-        backBtn.style.top = "-9999px";
+        names.forEach(n => place(n, -9999, -9999));
+        place(backBtn, -9999, -9999);
 
-        // Force a layout pass to measure sizes
         const bounds = getBounds();
-
-        // Shuffle names order each load
         const shuffled = names
           .map(el => ({ el, r: Math.random() }))
           .sort((a,b) => a.r - b.r)
@@ -152,68 +145,42 @@
 
         const placedRects = [];
 
-        // Place names
         for (const el of shuffled) {
-          const rect = el.getBoundingClientRect();
-          const ew = rect.width;
-          const eh = rect.height;
+          const r0 = el.getBoundingClientRect();
+          const ew = r0.width;
+          const eh = r0.height;
 
-          let placed = false;
-
-          // Try multiple times to find a non-overlapping spot
           for (let i = 0; i < 220; i++) {
             const x = Math.round(rand(bounds.left, Math.max(bounds.left, bounds.right - ew)));
             const y = Math.round(rand(bounds.top, Math.max(bounds.top, bounds.bottom - eh)));
 
             place(el, x, y);
-
             const r = el.getBoundingClientRect();
-            let hit = false;
 
-            for (const pr of placedRects) {
-              if (overlaps(r, pr, MIN_GAP)) { hit = true; break; }
-            }
-
-            if (!hit) {
+            if (!placedRects.some(pr => overlaps(r, pr, MIN_GAP))) {
               placedRects.push(r);
-              placed = true;
               break;
             }
           }
-
-          // If it fails, just keep it where it last landed (still usually fine)
-          if (!placed) {
-            placedRects.push(el.getBoundingClientRect());
-          }
         }
 
-        // Place back button randomly too, avoiding text
-        const bRect = backBtn.getBoundingClientRect();
-        const bw = bRect.width || 24;
-        const bh = bRect.height || 24;
+        const bw = backBtn.getBoundingClientRect().width || 24;
+        const bh = backBtn.getBoundingClientRect().height || 24;
 
         for (let i = 0; i < 260; i++) {
-          // Let back button roam a bit wider than the name cluster
           const x = Math.round(rand(PAD, Math.max(PAD, bounds.w - PAD - bw)));
           const y = Math.round(rand(PAD, Math.max(PAD, bounds.h - PAD - bh)));
 
           place(backBtn, x, y);
           const br = backBtn.getBoundingClientRect();
 
-          let hit = false;
-          for (const pr of placedRects) {
-            if (overlaps(br, pr, MIN_GAP + 8)) { hit = true; break; }
-          }
-
-          if (!hit) break;
+          if (!placedRects.some(pr => overlaps(br, pr, MIN_GAP + 8))) break;
         }
       }
 
-      // Run on load and when you come back (bfcache) and on resize
       window.addEventListener("load", layout);
-      window.addEventListener("pageshow", layout); // re-randomize when navigating back
+      window.addEventListener("pageshow", layout);
       window.addEventListener("resize", () => {
-        // small debounce
         clearTimeout(window.__rt);
         window.__rt = setTimeout(layout, 120);
       });
