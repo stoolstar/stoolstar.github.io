@@ -59,6 +59,27 @@
       color: #000;
     }
 
+    /* SOCIAL ICONS */
+    .socials {
+      position: fixed;
+      bottom: 64px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      opacity: 0.6;
+    }
+
+    .socials a img {
+      width: 20px;
+      height: auto;
+      display: block;
+    }
+
+    .socials:hover {
+      opacity: 1;
+    }
+
     /* BACK LOGO */
     .back-logo {
       position: fixed;
@@ -99,11 +120,21 @@
       </div>
     </div>
 
-    <!-- DISPLAY ONLY EMAIL (no underline, no click) -->
+    <!-- DISPLAY ONLY EMAIL -->
     <div class="email">
       nottrashmusic@gmail.com
     </div>
 
+  </div>
+
+  <!-- SOCIAL LINKS -->
+  <div class="socials">
+    <a href="https://www.instagram.com/nottrashmusicrecords?igsh=MW5zYmNhZnFvd3V5cg==" target="_blank" aria-label="instagram">
+      <img src="Insta%20logo%20.PNG" alt="instagram">
+    </a>
+    <a href="https://youtube.com/@nottrashmusic?si=dkFOQqrg584RdGjn" target="_blank" aria-label="youtube">
+      <img src="YouTube%20Logo%20.PNG" alt="youtube">
+    </a>
   </div>
 
   <!-- BACK TO HOME -->
