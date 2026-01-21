@@ -2,8 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- SEO: Title + Description tuned for branded searches -->
+  <title>Artists | Not Trash Music Records</title>
+  <meta name="description" content="Artists on Not Trash Music Records including ggsevv, ekm, vic zinner, robogeist, wailer, ca$ketgirl, and majin kinn.">
+  <meta name="keywords" content="not trash music, nottrashmusic, nottrashmusic records, not trash music records, nottrashmusic artists, not trash music artists, ggsevv, ekm, vic zinner, robogeist, wailer, ca$ketgirl, majin kinn">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <!-- SEO: Canonical -->
+  <link rel="canonical" href="https://supportyourlocalnottrash.com/artists.html">
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Artists | Not Trash Music Records">
+  <meta property="og:description" content="Artists on Not Trash Music Records including ggsevv, ekm, vic zinner, robogeist, wailer, ca$ketgirl, and majin kinn.">
+  <meta property="og:url" content="https://supportyourlocalnottrash.com/artists.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Artists | nottrashmusic</title>
 
   <style>
     :root{
@@ -25,6 +41,16 @@
       height:100vh;
       overflow:hidden;
       position:relative;
+    }
+
+    /* SEO text: present for crawlers, invisible for layout */
+    .seo-hidden {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
     }
 
     .stage{
@@ -74,6 +100,12 @@
 </head>
 
 <body>
+  <!-- SEO text: helps Google match "nottrashmusic" / "not trash music records" searches -->
+  <header class="seo-hidden" aria-hidden="true">
+    <h1>Not Trash Music Records Artists</h1>
+    <p>Roster includes ggsevv, ekm, vic zinner, robogeist, wailer, ca$ketgirl, and majin kinn.</p>
+  </header>
+
   <div class="stage" id="stage">
     <!-- artists -->
     <div class="name"><a href="#">ggsevv</a></div>
@@ -86,7 +118,7 @@
 
     <!-- back button -->
     <a href="index.html" class="back-button" id="backBtn" aria-label="Back">
-      <img src="Untitled%20(36).png" alt="Back" />
+      <img src="Untitled%20(36).png" alt="Back to Not Trash Music home" />
     </a>
   </div>
 
