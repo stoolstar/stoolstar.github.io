@@ -2,7 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>contact</title>
+
+  <!-- SEO: Title + Description tuned for branded searches -->
+  <title>Contact | Not Trash Music Records</title>
+  <meta name="description" content="Contact Not Trash Music (NotTrashMusic Records). Email nottrashmusic@gmail.com and connect on Instagram and YouTube.">
+  <meta name="keywords" content="not trash music, nottrashmusic, nottrashmusic records, not trash music records, contact not trash music, nottrashmusic email, nottrashmusic gmail">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <!-- SEO: Canonical -->
+  <link rel="canonical" href="https://supportyourlocalnottrash.com/contact.html">
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Contact | Not Trash Music Records">
+  <meta property="og:description" content="Contact Not Trash Music (NotTrashMusic Records). Email nottrashmusic@gmail.com and connect on Instagram and YouTube.">
+  <meta property="og:url" content="https://supportyourlocalnottrash.com/contact.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -23,6 +39,16 @@
       justify-content: center;
       text-align: center;
       flex-direction: column;
+    }
+
+    /* SEO text: present for crawlers, invisible for layout */
+    .seo-hidden {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
     }
 
     /* MASCOT WRAPPER */
@@ -104,13 +130,19 @@
 
 <body>
 
+  <!-- SEO text: helps Google match "nottrashmusic" / "not trash music records" searches -->
+  <header class="seo-hidden" aria-hidden="true">
+    <h1>Contact Not Trash Music Records</h1>
+    <p>Email Not Trash Music at nottrashmusic@gmail.com. Follow NotTrashMusic Records on Instagram and YouTube.</p>
+  </header>
+
   <div class="center">
 
     <!-- MASCOT -->
     <div class="mascot-wrap">
       <img 
         src="Ntm%20mail%20man%20.png" 
-        alt="contact mascot"
+        alt="Not Trash Music contact mascot"
         class="mascot-img"
       >
 
@@ -129,17 +161,17 @@
 
   <!-- SOCIAL LINKS -->
   <div class="socials">
-    <a href="https://www.instagram.com/nottrashmusicrecords?igsh=MW5zYmNhZnFvd3V5cg==" target="_blank" aria-label="instagram">
-      <img src="Insta%20logo%20.PNG" alt="instagram">
+    <a href="https://www.instagram.com/nottrashmusicrecords?igsh=MW5zYmNhZnFvd3V5cg==" target="_blank" rel="noopener noreferrer" aria-label="instagram">
+      <img src="Insta%20logo%20.PNG" alt="Instagram - Not Trash Music Records">
     </a>
-    <a href="https://youtube.com/@nottrashmusic?si=dkFOQqrg584RdGjn" target="_blank" aria-label="youtube">
-      <img src="YouTube%20Logo%20.PNG" alt="youtube">
+    <a href="https://youtube.com/@nottrashmusic?si=dkFOQqrg584RdGjn" target="_blank" rel="noopener noreferrer" aria-label="youtube">
+      <img src="YouTube%20Logo%20.PNG" alt="YouTube - Not Trash Music">
     </a>
   </div>
 
   <!-- BACK TO HOME -->
   <a href="index.html" class="back-logo">
-    <img src="Untitled%20(36).png" alt="back">
+    <img src="Untitled%20(36).png" alt="Back to Not Trash Music home">
   </a>
 
 </body>
