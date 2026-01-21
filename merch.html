@@ -3,196 +3,87 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- SEO: Title + Description tuned for branded searches -->
   <title>Merch | Not Trash Music Records</title>
-  <meta name="description" content="Official Not Trash Music merch. NTM Logo Hoodie in Red or Blue. Local fulfillment printed in Wichita, Kansas.">
-  <meta name="keywords" content="not trash music, nottrashmusic, nottrashmusic records, not trash music records, nottrashmusic merch, not trash music merch, ntm hoodie, nottrashmusic hoodie, wichita merch">
-  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="description" content="Official Not Trash Music merch. NTM Logo Hoodie printed locally in Wichita, Kansas.">
+  <meta name="robots" content="index,follow">
 
-  <!-- SEO: Canonical -->
   <link rel="canonical" href="https://supportyourlocalnottrash.com/merch.html">
 
-  <!-- Social preview -->
-  <meta property="og:title" content="Merch | Not Trash Music Records">
-  <meta property="og:description" content="Official Not Trash Music merch. NTM Logo Hoodie in Red or Blue. Local fulfillment printed in Wichita, Kansas.">
-  <meta property="og:url" content="https://supportyourlocalnottrash.com/merch.html">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
+  <!-- optional step 4 -->
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     html, body {
       margin: 0;
-      padding: 0;
-      width: 100%;
       height: 100%;
-      background: #ffffff;
+      background: #fff;
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* SEO text: present for crawlers, invisible for layout */
     .seo-hidden {
       position: absolute;
       left: -9999px;
-      top: auto;
       width: 1px;
       height: 1px;
       overflow: hidden;
     }
 
     .wrap {
-      min-height: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
       flex-direction: column;
-      padding: 70px 16px 140px;
-      box-sizing: border-box;
+      align-items: center;
+      padding: 70px 16px;
     }
 
     .image {
       max-width: 62vw;
       max-height: 38vh;
-      height: auto;
-      display: block;
     }
 
     .title {
-      margin-top: 10px;
       font-size: 12px;
-      color: #000;
-      opacity: 0.9;
-      letter-spacing: 0.2px;
-    }
-
-    .controls {
       margin-top: 10px;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
     }
 
-    select {
-      font-size: 11px;
-      padding: 7px 10px;
-      border: 1px solid rgba(0,0,0,0.18);
-      background: #fff;
-      color: #000;
-      border-radius: 8px;
-      outline: none;
-      height: 34px;
-    }
-
-    .buy {
-      font-size: 11px;
-      color: #000;
-      border: 1px solid rgba(0,0,0,0.22);
-      background: #fff;
-      padding: 7px 14px;
-      border-radius: 8px;
-      height: 34px;
-      cursor: not-allowed;
-      opacity: 0.65;
-      text-transform: uppercase;
-      letter-spacing: 0.9px;
-    }
-
-    /* CONDENSED DESCRIPTION */
     .note {
-      margin-top: 14px;
       font-size: 9.5px;
+      max-width: 300px;
+      text-align: center;
       opacity: 0.55;
-      line-height: 1.55;
-      max-width: 300px;   /* tighter column */
-      padding: 0 6px;
     }
 
-    /* BACK LOGO */
     .back-logo {
       position: fixed;
       bottom: 22px;
       left: 50%;
       transform: translateX(-50%);
-      opacity: 0.55;
     }
 
     .back-logo img {
       width: 32px;
-      height: auto;
-      cursor: pointer;
-      display: block;
-    }
-
-    .back-logo:hover {
-      opacity: 1;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- SEO text: helps Google match "nottrashmusic" / "not trash music records" searches -->
-  <header class="seo-hidden" aria-hidden="true">
+  <header class="seo-hidden">
     <h1>Not Trash Music Records Merch</h1>
-    <p>Official Not Trash Music merch including the NTM Logo Hoodie. Local fulfillment printed in Wichita, Kansas.</p>
+    <p>NTM Logo Hoodie printed locally in Wichita, Kansas.</p>
   </header>
 
   <div class="wrap">
-
-    <img
-      src="IMG_7516.jpeg"
-      alt="Not Trash Music NTM Logo Hoodie"
-      class="image"
-    >
-
+    <img src="IMG_7516.jpeg" alt="Not Trash Music Hoodie" class="image">
     <div class="title">NTM Logo Hoodie</div>
-
-    <div class="controls">
-      <select id="color">
-        <option value="Red" selected>Red</option>
-        <option value="Blue">Blue</option>
-      </select>
-
-      <select id="size">
-        <option value="XS">XS</option>
-        <option value="S">S</option>
-        <option value="M" selected>M</option>
-        <option value="L">L</option>
-        <option value="XL">XL</option>
-        <option value="2XL">2XL</option>
-        <option value="3XL">3XL</option>
-        <option value="4XL">4XL</option>
-      </select>
-
-      <button class="buy" disabled>Coming Soon</button>
-    </div>
-
-    <div class="note">
-      Local fulfillment. Printed by Allen-Lee Screen Printing in Wichita, KS. Lots of love and quality control goes into each hoodie. You’ll receive a confirmation email from Stripe after purchase.
-    </div>
-
+    <div class="note">Local fulfillment. Printed in Wichita, KS.</div>
   </div>
 
   <a href="index.html" class="back-logo">
-    <img src="Untitled%20(36).png" alt="Back to Not Trash Music home">
+    <img src="Untitled%20(36).png" alt="Back">
   </a>
-
-  <script>
-    const color = document.getElementById("color");
-    const size = document.getElementById("size");
-
-    const locked = {
-      color: color.value,
-      size: size.value
-    };
-
-    color.addEventListener("change", () => { color.value = locked.color; });
-    size.addEventListener("change", () => { size.value = locked.size; });
-  </script>
 
 </body>
 </html>
