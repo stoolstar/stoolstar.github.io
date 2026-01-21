@@ -2,7 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>not trash music</title>
+
+  <!-- SEO: Title + Description tuned for branded searches -->
+  <title>Not Trash Music | Independent Record Label</title>
+  <meta name="description" content="Not Trash Music (NotTrashMusic Records) is an independent record label supporting local artists, releases, and merch. Visit supportyourlocalnottrash.com.">
+  <meta name="keywords" content="not trash music, nottrashmusic, nottrashmusic records, not trash music records, independent record label, nottrashmusic label, support your local not trash">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+
+  <!-- SEO: Canonical -->
+  <link rel="canonical" href="https://supportyourlocalnottrash.com/">
+
+  <!-- Social preview -->
+  <meta property="og:title" content="Not Trash Music | Independent Record Label">
+  <meta property="og:description" content="Not Trash Music (NotTrashMusic Records) is an independent record label supporting local artists, releases, and merch.">
+  <meta property="og:url" content="https://supportyourlocalnottrash.com/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -20,6 +36,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+
+    /* SEO text: present for crawlers, invisible for layout */
+    .seo-hidden {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
       overflow: hidden;
     }
 
@@ -192,10 +218,16 @@
 
 <body>
 
+  <!-- SEO text: helps Google match "nottrashmusic" / "not trash music records" searches -->
+  <header class="seo-hidden" aria-hidden="true">
+    <h1>Not Trash Music Records</h1>
+    <p>Not Trash Music (NotTrashMusic) is an independent record label supporting local artists, releases, and merch. Support your local not trash.</p>
+  </header>
+
   <div class="shine">
     <img
       src="Untitled%20(36).png"
-      alt="not trash music"
+      alt="Not Trash Music logo"
       id="cover"
     >
   </div>
