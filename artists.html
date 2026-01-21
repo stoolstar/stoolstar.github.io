@@ -3,57 +3,215 @@
 <head>
   <meta charset="UTF-8">
 
+  <!-- SEO -->
   <title>Artists | Not Trash Music Records</title>
-  <meta name="description" content="Artists on Not Trash Music Records including ggsevv, ekm, robogeist, wailer, ca$ketgirl, and majin kinn.">
+  <meta name="description" content="Artists on Not Trash Music Records including ggsevv, ekm, vic zinner, robogeist, wailer, ca$ketgirl, and majin kinn.">
   <meta name="robots" content="index,follow">
-
   <link rel="canonical" href="https://supportyourlocalnottrash.com/artists.html">
 
-  <!-- optional step 4 -->
+  <!-- optional PWA bits -->
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#ffffff">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body {
-      margin: 0;
-      background: #fff;
+    :root{
+      --pad: 22;
+      --fs: 14;
+      --minGap: 20;
+      --clusterTop: 10;
+      --clusterBottom: 90;
+      --clusterLeft: 6;
+      --clusterRight: 94;
+    }
+
+    html, body{
+      margin:0;
+      padding:0;
+      width:100%;
+      height:100%;
+      background:#ffffff;
       font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
+      overflow:hidden;
     }
 
-    .seo-hidden {
-      position: absolute;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
+    /* hidden SEO text */
+    .seo-hidden{
+      position:absolute;
+      left:-9999px;
+      width:1px;
+      height:1px;
+      overflow:hidden;
     }
 
-    .name {
-      position: absolute;
-      font-size: 14px;
+    .stage{
+      position:absolute;
+      inset:0;
+    }
+
+    .name,
+    .back-button{
+      position:absolute;
+      font-size: calc(var(--fs) * 1px);
+      letter-spacing: 0.2px;
+      opacity: 0.95;
+      white-space: nowrap;
+      user-select: none;
       text-transform: lowercase;
     }
 
-    .back-button {
-      position: absolute;
+    .name a{
+      color:#000;
+      text-decoration:none;
     }
 
-    .back-button img {
-      width: 24px;
+    .name a:hover{
+      opacity:0.6;
+    }
+
+    .back-button{
+      opacity:0.7;
+      z-index:10;
+    }
+
+    .back-button:hover{
+      opacity:0.45;
+    }
+
+    .back-button img{
+      width:24px;
+      height:auto;
+      display:block;
+    }
+
+    @media (max-width: 420px){
+      :root{ --fs: 13; --pad: 18; }
+      .back-button img{ width:22px; }
     }
   </style>
 </head>
 
 <body>
 
-  <header class="seo-hidden">
+  <!-- SEO-only content -->
+  <header class="seo-hidden" aria-hidden="true">
     <h1>Not Trash Music Records Artists</h1>
-    <p>ggsevv, ekm, robogeist, wailer, ca$ketgirl, majin kinn</p>
+    <p>ggsevv, ekm, vic zinner, robogeist, wailer, ca$ketgirl, majin kinn</p>
   </header>
 
-  <!-- your existing JS-driven layout remains unchanged here -->
+  <div class="stage" id="stage">
+    <!-- artists -->
+    <div class="name"><a href="#">ggsevv</a></div>
+    <div class="name"><a href="#">ekm</a></div>
+    <div class="name"><a href="#">vic zinner</a></div>
+    <div class="name"><a href="#">robogeist</a></div>
+    <div class="name"><a href="#">wailer</a></div>
+    <div class="name"><a href="#">ca$ketgirl</a></div>
+    <div class="name"><a href="#">majin kinn</a></div>
+
+    <!-- back -->
+    <a href="index.html" class="back-button" id="backBtn" aria-label="Back to home">
+      <img src="Untitled%20(36).png" alt="Back">
+    </a>
+  </div>
+
+  <script>
+    (function () {
+      const stage = document.getElementById("stage");
+      const names = Array.from(stage.querySelectorAll(".name"));
+      const backBtn = document.getElementById("backBtn");
+
+      const root = getComputedStyle(document.documentElement);
+      const PAD = parseInt(root.getPropertyValue("--pad"), 10) || 22;
+      const MIN_GAP = parseInt(root.getPropertyValue("--minGap"), 10) || 20;
+
+      const CL_TOP = (parseFloat(root.getPropertyValue("--clusterTop")) || 10) / 100;
+      const CL_BOT = (parseFloat(root.getPropertyValue("--clusterBottom")) || 90) / 100;
+      const CL_LFT = (parseFloat(root.getPropertyValue("--clusterLeft")) || 6) / 100;
+      const CL_RGT = (parseFloat(root.getPropertyValue("--clusterRight")) || 94) / 100;
+
+      const rand = (min, max) => Math.random() * (max - min) + min;
+
+      function overlaps(r1, r2, extra = 0) {
+        return !(
+          r1.right + extra < r2.left ||
+          r1.left - extra > r2.right ||
+          r1.bottom + extra < r2.top ||
+          r1.top - extra > r2.bottom
+        );
+      }
+
+      function place(el, x, y) {
+        el.style.left = x + "px";
+        el.style.top = y + "px";
+      }
+
+      function getBounds() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        return {
+          w, h,
+          left: Math.round(w * CL_LFT) + PAD,
+          right: Math.round(w * CL_RGT) - PAD,
+          top: Math.round(h * CL_TOP) + PAD,
+          bottom: Math.round(h * CL_BOT) - PAD
+        };
+      }
+
+      function layout() {
+        names.forEach(n => place(n, -9999, -9999));
+        place(backBtn, -9999, -9999);
+
+        const bounds = getBounds();
+        const shuffled = names
+          .map(el => ({ el, r: Math.random() }))
+          .sort((a,b) => a.r - b.r)
+          .map(o => o.el);
+
+        const placedRects = [];
+
+        for (const el of shuffled) {
+          const r0 = el.getBoundingClientRect();
+          const ew = r0.width;
+          const eh = r0.height;
+
+          for (let i = 0; i < 220; i++) {
+            const x = Math.round(rand(bounds.left, Math.max(bounds.left, bounds.right - ew)));
+            const y = Math.round(rand(bounds.top, Math.max(bounds.top, bounds.bottom - eh)));
+
+            place(el, x, y);
+            const r = el.getBoundingClientRect();
+
+            if (!placedRects.some(pr => overlaps(r, pr, MIN_GAP))) {
+              placedRects.push(r);
+              break;
+            }
+          }
+        }
+
+        const bw = backBtn.getBoundingClientRect().width || 24;
+        const bh = backBtn.getBoundingClientRect().height || 24;
+
+        for (let i = 0; i < 260; i++) {
+          const x = Math.round(rand(PAD, Math.max(PAD, bounds.w - PAD - bw)));
+          const y = Math.round(rand(PAD, Math.max(PAD, bounds.h - PAD - bh)));
+
+          place(backBtn, x, y);
+          const br = backBtn.getBoundingClientRect();
+
+          if (!placedRects.some(pr => overlaps(br, pr, MIN_GAP + 8))) break;
+        }
+      }
+
+      window.addEventListener("load", layout);
+      window.addEventListener("pageshow", layout);
+      window.addEventListener("resize", () => {
+        clearTimeout(window.__rt);
+        window.__rt = setTimeout(layout, 120);
+      });
+    })();
+  </script>
+
 </body>
 </html>
